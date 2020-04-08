@@ -344,14 +344,14 @@ if (isset($assign_to_config) && is_array($assign_to_config))
  * Load the security class for xss and csrf support
  * -----------------------------------------------------
  */
-	$SEC =& load_class('Security', 'core');
+	$SEC =& load_class('Security', 'core', $charset);
 
 /*
  * ------------------------------------------------------
  *  Load the Input class and sanitize globals
  * ------------------------------------------------------
  */
-	$IN	=& load_class('Input', 'core');
+	$IN	=& load_class('Input', 'core', $SEC);
 
 /*
  * ------------------------------------------------------
