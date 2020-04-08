@@ -39,7 +39,7 @@ REQUIREMENTS
 This library requires the following:
 
 - PHP 5.3.0+
-- CodeIgniter 3.0.0+
+- CodeIgniter 3.2.0-dev+
 
 ---
 
