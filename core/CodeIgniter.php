@@ -205,20 +205,6 @@ if ( ! is_php('5.4'))
 
 /*
  * ------------------------------------------------------
- *  Instantiate the hooks class
- * ------------------------------------------------------
- */
-	$EXT =& load_class('Hooks', 'core');
-
-/*
- * ------------------------------------------------------
- *  Is there a "pre_system" hook?
- * ------------------------------------------------------
- */
-	$EXT->call_hook('pre_system');
-
-/*
- * ------------------------------------------------------
  *  Instantiate the config class
  * ------------------------------------------------------
  *
@@ -227,16 +213,31 @@ if ( ! is_php('5.4'))
  * depending on another class that uses it.
  *
  */
-	$CFG =& load_class('Config', 'core');
+$CFG =& load_class('Config', 'core');
 
-	// Do we have any manually set config items in the index.php file?
-	if (isset($assign_to_config) && is_array($assign_to_config))
-	{
-		foreach ($assign_to_config as $key => $value)
-		{
-			$CFG->set_item($key, $value);
-		}
-	}
+// Do we have any manually set config items in the index.php file?
+if (isset($assign_to_config) && is_array($assign_to_config))
+{
+    foreach ($assign_to_config as $key => $value)
+    {
+        $CFG->set_item($key, $value);
+    }
+}
+
+/*
+ * ------------------------------------------------------
+ *  Instantiate the hooks class
+ * ------------------------------------------------------
+ */
+	$EXT =& load_class('Hooks', 'core', $CFG);
+
+/*
+ * ------------------------------------------------------
+ *  Is there a "pre_system" hook?
+ * ------------------------------------------------------
+ */
+	$EXT->call_hook('pre_system');
+
 
 /*
  * ------------------------------------------------------
@@ -305,14 +306,14 @@ if ( ! is_php('5.4'))
  *  Instantiate the UTF-8 class
  * ------------------------------------------------------
  */
-	$UNI =& load_class('Utf8', 'core');
+	$UNI =& load_class('Utf8', 'core', $charset);
 
 /*
  * ------------------------------------------------------
  *  Instantiate the URI class
  * ------------------------------------------------------
  */
-	$URI =& load_class('URI', 'core');
+	$URI =& load_class('URI', 'core', $CFG);
 
 /*
  * ------------------------------------------------------
